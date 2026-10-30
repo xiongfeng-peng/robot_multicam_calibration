@@ -1,0 +1,6 @@
+# EXAMPLE ONLY. Replace with real camera intrinsics before calibration.
+placeholder: true  # DELETE THIS LINE after replacing ALL parameters below
+width: 640
+height: 480
+K: [382.953, 0.0, 319.069, 0.0, 382.953, 244.249, 0.0, 0.0, 1.0]
+D: [0.0, 0.0, 0.0, 0.0, 0.0]

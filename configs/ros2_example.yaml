@@ -1,0 +1,40 @@
+# Edit topic names, base/gripper frames and camera intrinsics before using.
+board:
+  dictionary: DICT_5X5_1000
+  squares_x: 8
+  squares_y: 6
+  square_length_m: 0.035
+  marker_length_m: 0.025
+# Image-only RGB intrinsics: capture 20-35 diverse views per camera before Stage 1.
+# Solver writes YAML at cameras.<name>.intrinsics (overwriting placeholders only).
+intrinsic_calibration:
+  min_charuco_corners: 12
+  min_images: 15
+  max_rms_px: 1.5
+  max_outlier_fraction: 0.2
+
+calibration:
+  min_charuco_corners: 8
+  max_pnp_rmse_px: 2.0
+  max_frame_age_s: 1.0
+  max_pair_timestamp_delta_s: 0.2
+  max_still_translation_m: 0.0005
+  max_still_rotation_deg: 0.15
+  settle_check_s: 0.3
+paths:
+  dataset: ./data
+  output: ./output
+cameras:
+  wrist:
+    source: {type: ros2, topic: /wrist/color/image_raw, compressed: false}
+    intrinsics: ./configs/wrist_intrinsics.yaml
+  cam1:
+    source: {type: ros2, topic: /cam1/color/image_raw, compressed: false}
+    intrinsics: ./configs/cam1_intrinsics.yaml
+  cam2:
+    source: {type: ros2, topic: /cam2/color/image_raw, compressed: false}
+    intrinsics: ./configs/cam2_intrinsics.yaml
+robot:
+  type: ros2_tf
+  base_frame: base_link
+  gripper_frame: tool0

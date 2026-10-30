@@ -1,0 +1,50 @@
+# All transformations use T_target_source; all lengths in metres.
+# Board dimension MUST be measured physically after printing and corrected here.
+board:
+  dictionary: DICT_5X5_1000
+  squares_x: 8
+  squares_y: 6
+  square_length_m: 0.035
+  marker_length_m: 0.025
+
+# Image-only RGB intrinsics: capture 20-35 diverse views per camera before Stage 1.
+# Solver writes YAML at cameras.<name>.intrinsics (overwriting placeholders only).
+intrinsic_calibration:
+  min_charuco_corners: 12
+  min_images: 15
+  max_rms_px: 1.5
+  max_outlier_fraction: 0.2
+
+calibration:
+  min_charuco_corners: 8
+  max_pnp_rmse_px: 2.0
+  max_frame_age_s: 1.0
+  max_pair_timestamp_delta_s: 0.2
+  max_still_translation_m: 0.0005
+  max_still_rotation_deg: 0.15
+  settle_check_s: 0.3
+
+paths:
+  dataset: ./data
+  output: ./output
+
+# source.type: opencv (USB camera index or RTSP URL), or ros2 (ROS2 topic).
+# Keep exactly the resolution used to calibrate the camera intrinsics.
+cameras:
+  wrist:
+    source: {type: opencv, device: 0, width: 640, height: 480}
+    intrinsics: ./configs/wrist_intrinsics.yaml
+  cam1:
+    source: {type: opencv, device: 1, width: 640, height: 480}
+    intrinsics: ./configs/cam1_intrinsics.yaml
+  cam2:
+    source: {type: opencv, device: 2, width: 640, height: 480}
+    intrinsics: ./configs/cam2_intrinsics.yaml
+
+# robot.type = ros2_tf or pose_file; pose_file useful for custom FK adapters.
+# pose_file JSON must supply T_base_gripper (4x4) and a recent stamp_unix_s.
+robot:
+  type: pose_file
+  pose_file: ./examples/robot_pose.json
+  base_frame: base_link
+  gripper_frame: tool0

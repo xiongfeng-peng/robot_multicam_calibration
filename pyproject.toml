@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robot-multicam-calibration"
+version = "0.1.0"
+description = "Online ChArUco hand-eye and multi-camera to robot-base calibration"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "scipy>=1.10",
+  "opencv-contrib-python>=4.8,<5",
+  "PyYAML>=6.0"
+]
+
+[project.scripts]
+robot-multicalib = "multicalib.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["multicalib*"]

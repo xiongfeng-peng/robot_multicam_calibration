@@ -1,0 +1,5 @@
+{
+  "tcp_example_replace_with_measured": [0.0, 0.0, 0.12],
+  "left_finger_example_replace_with_measured": [-0.025, 0.0, 0.12],
+  "right_finger_example_replace_with_measured": [0.025, 0.0, 0.12]
+}
